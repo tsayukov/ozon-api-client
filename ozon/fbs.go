@@ -1055,7 +1055,7 @@ type GetShipmentDataByIdentifierResult struct {
 	TrackingNumber string `json:"tracking_number"`
 
 	// Details on shipping rate
-	Tariffication []FBSPostingTariffication `json:"tariffication"`
+	Tariffication FBSPostingTariffication `json:"tariffication"`
 }
 
 type GetShipmentDataByIdentifierResultAdditionalData struct {
