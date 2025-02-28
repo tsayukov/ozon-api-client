@@ -743,17 +743,19 @@ type UpdatePricesParams struct {
 // Product price details
 type UpdatePricesPrice struct {
 	// Attribute for enabling and disabling promos auto-application
-	AutoActionEnabled string `json:"auto_action_enabled"`
+	AutoActionEnabled string `json:"auto_action_enabled,omitempty"`
 
 	// Currency of your prices. The passed value must be the same as the one set in the personal account settings.
 	// By default, the passed value is RUB, Russian ruble
-	CurrencyCode string `json:"currency_code"`
+	CurrencyCode string `json:"currency_code,omitempty"`
 
 	// Minimum product price with all promotions applied
-	MinPrice string `json:"min_price"`
+	MinPrice string `json:"min_price,omitempty"`
+
+	NetPrice string `json:"net_price,omitempty"`
 
 	// Product identifier in the seller's system
-	OfferId string `json:"offer_id"`
+	OfferId string `json:"offer_id,omitempty"`
 
 	// Price before discounts. Displayed strikethrough on the product description page.
 	// Specified in rubles.
@@ -761,7 +763,7 @@ type UpdatePricesPrice struct {
 	// up to two digits after the decimal point.
 	//
 	// If there are no discounts on the product, pass 0 to this field and specify the correct price in the price field
-	OldPrice string `json:"old_price"`
+	OldPrice string `json:"old_price,omitempty"`
 
 	// Product price including discounts. This value is displayed on the product description page.
 	//
@@ -774,7 +776,7 @@ type UpdatePricesPrice struct {
 	// 400-10,000 - min diff. 5%
 	//
 	// > 10,000 - min diff. 500 rubles
-	Price string `json:"price"`
+	Price string `json:"price,omitempty"`
 
 	// Attribute for enabling and disabling pricing strategies auto-application
 	//
@@ -783,10 +785,10 @@ type UpdatePricesPrice struct {
 	// If you pass `ENABLED` in this parameter, pass `strategy_id` in the `/v1/pricing-strategy/products/add` method request.
 	//
 	// If you pass `DISABLED` in this parameter, the product is removed from the strategy
-	PriceStrategyEnabled PriceStrategy `json:"price_strategy_enabled"`
+	PriceStrategyEnabled PriceStrategy `json:"price_strategy_enabled,omitempty"`
 
 	// Product identifier
-	ProductId int64 `json:"product_id"`
+	ProductId int64 `json:"product_id,omitempty"`
 
 	// Use parameter if the regular and economy products have the same article code—offer_id = quant_id. To update price of the:
 	//
@@ -794,10 +796,10 @@ type UpdatePricesPrice struct {
 	// 	- economy product, pass the size of its MOQ.
 	//
 	// If the regular and economy products have different article codes, don't specify the parameter.
-	QuantSize int64 `json:"quant_size"`
+	QuantSize int64 `json:"quant_size,omitempty"`
 
 	// VAT rate for the product
-	VAT VAT `json:"vat"`
+	VAT VAT `json:"vat,omitempty"`
 }
 
 type UpdatePricesResponse struct {
@@ -2107,7 +2109,7 @@ type GetProductPriceInfoFilter struct {
 type GetProductPriceInfoResponse struct {
 	core.CommonResponse
 
-	Result GetProductPriceInfoResult `json:"result"`
+	GetProductPriceInfoResult
 }
 
 type GetProductPriceInfoResult struct {
@@ -2123,7 +2125,7 @@ type GetProductPriceInfoResult struct {
 
 type GetProductPriceInfoResultItem struct {
 	// Maximum acquiring fee
-	Acquiring int32 `json:"acquiring"`
+	Acquiring float64 `json:"acquiring"`
 
 	// Commissions information
 	Commissions GetProductPriceInfoResultItemCommission `json:"commissions"`
